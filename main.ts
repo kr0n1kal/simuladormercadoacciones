@@ -2,6 +2,7 @@
 import { Empresa, ListaEnlazada } from "./empresa";
 import { GestionCompraYVenta } from "./gestion";
 import { usuarios, contraseñas } from "./usuarios";
+import { Priorizacion } from "./priorizacion";
 
 //SE CREA UN OBJETO TIPO DICCIONARIO QUE ESPECIFICA QUE LAS CLAVES DEL OBJETO SERAN CADENAS DE TEXTO, OSEA LOS NOMBRES DE USUARIO
 //ADEMAS PARA CADA INICIO DE SESION, SE INSTANCIARA UNA NUEVA LISTA ENLAZADA PARA QUE CADA USUARIO TRATE SUS EMPRESAS DE MANERA DISTINTA
@@ -54,7 +55,7 @@ if(login(usuario1, contra1)){
     //LA DE PRECIOMAX CONTIENE EL PRECIO MAXIMO A PAGAR POR UNA EMPRESA
     //LA DE RESULTADOS OBTIENE LAS EMPRESAS ENTRE EL RANGO DE PRECIOMIN Y PRECIOMAX
     const precioMin = 100;
-    const precioMax = 300;
+    const precioMax = 200;
     const resultados = gestion.buscarPorPrecio(precioMin, precioMax);
 
     //RECORREMOS TODO NUESTRO ARRAY DE LOS RESULTADOS DE LAS EMPRESAS ENTRE LOS RANGOS DE PRECIOMIN Y PRECIOMAX 
@@ -78,4 +79,21 @@ if(login(usuario1, contra1)){
     } else {
         console.log("Empresa no encotrada!");
     }
+
+    //AQUI EMPEZAMOS CON EL EJEMPLO DE PRIORIZACION DE EMPRESAS POR SU PRECIO
+    //INSTANCIAMOS EL SISTEMA DE PRIORIZACION
+    const sistemaPriorizacion = new Priorizacion();
+
+    //AGREGAMOS ALGUNAS ÓRDENES DE COMPRA Y VENTA  CON DIFERENTES PRECIOS
+    sistemaPriorizacion.agregarOrdenCompra(150);
+    sistemaPriorizacion.agregarOrdenCompra(200);
+    sistemaPriorizacion.agregarOrdenCompra(100);
+    sistemaPriorizacion.agregarOrdenCompra(90);
+
+    //OBTENEMOS LAS MEJORES ORDENES DE COMPRA Y VENTA SEGUN LA PRIORIDAD, EN EL CASO DE QUE NO EXISTAN DEVOLVEMOS NULL
+    const mejorCompra = sistemaPriorizacion.obtenerMejorCompra();
+    console.log("La mejor orden de compra es por: Q."+mejorCompra);
+
+    const mejorVenta = sistemaPriorizacion.obtenerMejorVenta();
+    console.log("La mejor orden de venta es por: Q."+mejorVenta);
 }

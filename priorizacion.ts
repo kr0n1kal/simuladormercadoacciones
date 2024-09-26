@@ -34,4 +34,14 @@ export class Priorizacion{
     public obtenerMejorVenta(): number | null {
         return this.ordenesVenta.isEmpty() ? null : this.ordenesVenta.extractTop();
     }
+
+        //SE OBTIENE LA ORDEN DE COMPRA PARA EL EMPAREJAMIENTO
+    public getOrdenesCompra(): Heap{
+        return this.ordenesCompra;
+    }
+
+    //SE OBTIENE LA ORDEN DE VENTA PARA EL EMPAREJAMIENTO
+    public getOrdenesVenta(): Heap{
+        return this.ordenesVenta;
+    }
 }

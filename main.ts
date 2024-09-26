@@ -96,4 +96,12 @@ if(login(usuario1, contra1)){
 
     const mejorVenta = sistemaPriorizacion.obtenerMejorVenta();
     console.log("La mejor orden de venta es por: Q."+mejorVenta);
+
+    //AQUI EMPIEZA LA SECCION DE EMPAREJAMIENTO
+    //CREAMOS UNA VARIABLE EMPAREJADOR A LA QUE LE ASIGNAREMOS NUESTRO EMPAREJAMIENTO JUNTO CON NUESTRO SISTEMA DE PRIORIZACION
+    const emparejador = new Emparejamiento(sistemaPriorizacion);
+
+    //EJECUTAMOS EL EMPAREJAMIENTO, SI HAY ORDENES QUE COINCIDAN EN PRECIOS, SE EJECUTARÁ LA TRANSACCIÓN
+    emparejador.emparejarOrdenes();
+}
 }

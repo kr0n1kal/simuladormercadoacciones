@@ -1,8 +1,10 @@
-//SE IMPORTA LOS 3 ARCHIVOS QUE LLEVAMOS HASTA EL MOMENTO PARA PODER HACER USO DE ELLOS EN EL MAINs
+//SE IMPORTAN TODOS LOS ARCHIVOS NECESARIOS PARA PODER HACER USO DEL SISTEMA
 import { Empresa, ListaEnlazada } from "./empresa";
 import { GestionCompraYVenta } from "./gestion";
 import { usuarios, contraseñas } from "./usuarios";
 import { Priorizacion } from "./priorizacion";
+import { Emparejamiento } from "./emparejamiento";
+import { Registro } from "./registro";
 
 //SE CREA UN OBJETO TIPO DICCIONARIO QUE ESPECIFICA QUE LAS CLAVES DEL OBJETO SERAN CADENAS DE TEXTO, OSEA LOS NOMBRES DE USUARIO
 //ADEMAS PARA CADA INICIO DE SESION, SE INSTANCIARA UNA NUEVA LISTA ENLAZADA PARA QUE CADA USUARIO TRATE SUS EMPRESAS DE MANERA DISTINTA
@@ -35,6 +37,7 @@ function login(usuario: string, contra: string): boolean{
 //CREAMOS UN USUARIO
 const usuario1 = "andres";
 const contra1 = "diaz";
+const usuarioVendedor = "jose";
 
 //LLAMAMOS AL LOGIN QUE, EN CASO DE SER VERDADERO SEGUIRA EJECUTANDO TODO LO DEMAS
 //DE CASO CONTRARIO SOLO NOS MOSTRARA QUE ALGUNO DE LOS DATOS INGRESADOS SON INCORRECTOS
@@ -87,8 +90,8 @@ if(login(usuario1, contra1)){
     //AGREGAMOS ALGUNAS ÓRDENES DE COMPRA Y VENTA  CON DIFERENTES PRECIOS
     sistemaPriorizacion.agregarOrdenCompra(150);
     sistemaPriorizacion.agregarOrdenCompra(200);
-    sistemaPriorizacion.agregarOrdenCompra(100);
-    sistemaPriorizacion.agregarOrdenCompra(90);
+    sistemaPriorizacion.agregarOrdenVenta(100);
+    sistemaPriorizacion.agregarOrdenVenta(90);
 
     //OBTENEMOS LAS MEJORES ORDENES DE COMPRA Y VENTA SEGUN LA PRIORIDAD, EN EL CASO DE QUE NO EXISTAN DEVOLVEMOS NULL
     const mejorCompra = sistemaPriorizacion.obtenerMejorCompra();
@@ -98,10 +101,11 @@ if(login(usuario1, contra1)){
     console.log("La mejor orden de venta es por: Q."+mejorVenta);
 
     //AQUI EMPIEZA LA SECCION DE EMPAREJAMIENTO
+    const registro = new Registro();
+    const empresas: Empresa[] = userList.toArray();
     //CREAMOS UNA VARIABLE EMPAREJADOR A LA QUE LE ASIGNAREMOS NUESTRO EMPAREJAMIENTO JUNTO CON NUESTRO SISTEMA DE PRIORIZACION
-    const emparejador = new Emparejamiento(sistemaPriorizacion);
+    const emparejador = new Emparejamiento(sistemaPriorizacion, registro, usuario1, empresas);
 
     //EJECUTAMOS EL EMPAREJAMIENTO, SI HAY ORDENES QUE COINCIDAN EN PRECIOS, SE EJECUTARÁ LA TRANSACCIÓN
     emparejador.emparejarOrdenes();
-}
 }

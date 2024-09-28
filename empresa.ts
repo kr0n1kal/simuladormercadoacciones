@@ -63,6 +63,16 @@ export class ListaEnlazada{
         }
     }
 
+    public toArray(): Empresa[]{
+        const array: Empresa[] = [];
+        let actual = this.head;
+        while(actual){
+            array.push(actual.empresa);
+            actual = actual.next;
+        }
+        return array;
+    }
+
     //EL USUARIO DARA UN PRECIO MINIMO Y MAXIMO POR COMPRA O VENTA DE UNA EMPRESA, POR TANTO 
     //SE OFRECE UN METODO PARA MOSTRAR EMPRESAS QUE SE ENCUENTREN ENTRE ESE RANGO DE VALORES
     public buscarPorPrecio(precioMin: number, precioMax: number): Empresa[]{
